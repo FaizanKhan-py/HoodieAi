@@ -1,0 +1,23 @@
+# Environment Variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Firebase
+serviceAccountKey.json
+
+# API Secrets
+*.secret
+secrets.json
+
+# Dependencies
+node_modules/
+
+# Build
+build/
+dist/
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@keyframes marquee-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-row {
+  display: flex;
+  height:max-content;
+  width: max-content;
+  animation: marquee-horizontal 38s linear infinite;
+}
+
+.marquee-row:hover,
+.marquee-row:active {
+  animation-play-state: paused;
+}
+

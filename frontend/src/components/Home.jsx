@@ -31,12 +31,12 @@ export default function Home() {
       
       <br />
       <div className="md:px-6 px-4 md:mb-20">
-        <h1 className="md:text-7xl font-bold text-white text-2xl">
+        <h1 className="md:text-7xl font-bold text-white text-xl">
           Design your custom <br /> Hoodie with AI
         </h1>
         <br />
         <Link to="/create">
-          <button className="md:text-xl cursor-pointer border-1 border-purple-500 bg-purple-500 rounded-3xl h-10 md:h-12 px-6  font-semibold hover:bg-blue-900 hover:border-blue-900">
+          <button className=" cursor-pointer border-1 border-purple-500 bg-purple-500 rounded-3xl h-10 md:h-12 px-6  font-semibold hover:bg-blue-900 hover:border-blue-900">
             Create Now
           </button>
         </Link>

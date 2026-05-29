@@ -31,7 +31,7 @@ export default function Home() {
       
       <br />
       <div className="md:px-6 px-4 md:mb-20">
-        <h1 className="md:text-7xl font-bold text-white text-3xl">
+        <h1 className="md:text-7xl font-bold text-white text-2xl">
           Design your custom <br /> Hoodie with AI
         </h1>
         <br />
@@ -52,7 +52,7 @@ export default function Home() {
               <img
                 key={idx}
                 src={src}
-                className="md:h-88 w-auto rounded-xl object-cover h-44"
+                className="md:h-68 w-auto rounded-xl object-cover h-44"
                 alt="Hoodie design"
               />
             ))}

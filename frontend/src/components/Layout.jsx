@@ -25,16 +25,20 @@ export default function Layout() {
     return () => unsubscribe();
   }, []);
 
-  const loginWithGoogle = async () => {
+ const loginWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider);
     const user = auth.currentUser;
 
-  if (user) {
-    const token = await user.getIdToken();
-    console.log("JWT:", token);
-  }
-   
-  };
+    if (user) {
+      const token = await user.getIdToken();
+      
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+};
 
   const logout = async () => {
     await signOut(auth);

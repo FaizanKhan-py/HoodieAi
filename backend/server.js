@@ -17,7 +17,10 @@ const app = express();
 connectDB();
 
 // ── Global Middleware ─────────────────────────────────────────
-app.use(cors());
+app.use(cors({
+  origin: "https://hoodie-ai.vercel.app",
+  credentials: true
+}))
 app.use(express.json());
 
 // ── These are APIs for different entities ────────────────────────────────────────────────────

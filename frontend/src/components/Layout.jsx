@@ -80,11 +80,11 @@ export default function Layout() {
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">
           <img className="h-14 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
-          <p className="text-3xl font-bold">HoodieAI</p>
+          <p className="text-xl font-bold">HoodieAI</p>
         </NavLink>
 
         {/* DESKTOP MENU */}
-        <ul className="md:flex hidden gap-4  ml-10 items-center text-2xl ">
+        <ul className="md:flex hidden gap-4  ml-10 items-center  ">
           <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
           <li><NavLink to="/designs" className={navLinkClass}>Designs</NavLink></li>
 
@@ -122,7 +122,7 @@ export default function Layout() {
                   e.target.src = defaultAvatar;
                 }}
                 referrerPolicy="no-referrer"
-                className="h-9 w-9 md:h-13 md:w-13 rounded-full object-cover border"
+                className="h-9 w-9 md:h-9 md:w-9 rounded-full object-cover border"
                 alt="user"
               />
 

@@ -17,6 +17,17 @@ export default function ProtectedRoute({ children }) {
   const loginWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider);
     setShowModal(false);
+    const user = auth.currentUser;
+    
+        if (user) {
+          const token = await user.getIdToken();
+          
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+        }
   };
 
   if (user === undefined) return null;

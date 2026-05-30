@@ -69,17 +69,17 @@ function Creatnow() {
           <div className="flex gap-5">
             <label>
               <input type="radio" name="color" value="black" className="hidden peer" />
-              <div className="w-10 h-10 bg-black border-3 border-black peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
+              <div className="w-8 h-8 bg-black border-3 border-black peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
             </label>
 
             <label>
               <input type="radio" name="color" value="white" className="hidden peer" />
-              <div className="w-10 h-10 bg-white border-3 border-white peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
+              <div className="w-8 h-8 bg-white border-3 border-white peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
             </label>
 
             <label>
               <input type="radio" name="color" value="red" className="hidden peer" />
-              <div className="w-10 h-10 bg-red-700 border-3 border-red-700 peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
+              <div className="w-8 h-8 bg-red-700 border-3 border-red-700 peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
             </label>
           </div>
         </div>
@@ -113,7 +113,7 @@ function Creatnow() {
           <img
             src={imageUrl || defaultimg}
             alt="Hoodie"
-            className="w-[320px] md:w-[500px] h-[320px] md:h-[500px] object-cover rounded-2xl"
+            className="w-[320px] md:w-[400px] h-[240px] md:h-[400px] object-cover rounded-2xl"
           />
 
           {loading && (

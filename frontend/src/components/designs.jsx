@@ -18,7 +18,7 @@ const designs = [
     prompt: 'Futuristic black hoodie featuring a cybernetic panther, teal highlights, and subtle circuit patterns across the chest.',
     image: hoodie1,
     accent: 'from-slate-800 to-cyan-600',
-    tag: 'Editor\'s Pick',
+    tag: "Editor's Pick",
   },
   {
     title: 'Street Graffiti',
@@ -47,7 +47,6 @@ export default function Designs() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start justify-between gap-6 mb-12">
         <div>
-          {/* Eyebrow label */}
           <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-purple-400 mb-3 border border-purple-500/30 bg-purple-500/10 px-3 py-1 rounded-full">
             AI-Generated
           </span>
@@ -85,15 +84,12 @@ export default function Designs() {
                 alt={design.title}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              {/* Gradient overlay */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
-              {/* Tag badge */}
               <span className="absolute top-3 left-3 text-[10px] font-bold tracking-widest uppercase bg-black/50 backdrop-blur-sm border border-white/10 text-purple-300 px-2.5 py-1 rounded-full">
                 {design.tag}
               </span>
 
-              {/* Index number */}
               <span className="absolute bottom-3 right-4 text-5xl font-black text-white/10 select-none leading-none">
                 {String(index + 1).padStart(2, '0')}
               </span>
@@ -104,11 +100,10 @@ export default function Designs() {
               <h3 className="text-lg font-bold text-white tracking-tight">{design.title}</h3>
               <p className="mt-2 text-sm text-gray-400 leading-relaxed">{design.prompt}</p>
 
-              {/* Bottom row */}
-              <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+              <div className="mt-4 flex items-center justify-between">
                 <span className="text-xs text-purple-400/60 tracking-widest uppercase font-medium">AI Generated</span>
                 <Link to="/create">
-                  <button className="text-xs font-semibold text-purple-300 hover:text-white transition-colors duration-150 cursor-pointer">
+                  <button className="text-xs font-semibold text-purple-300 hover:text-white cursor-pointer">
                     Try this style →
                   </button>
                 </Link>

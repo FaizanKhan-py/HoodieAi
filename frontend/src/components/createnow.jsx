@@ -51,7 +51,7 @@ function Creatnow() {
       {/* LEFT SIDE */}
       <div className="w-full md:w-1/2 flex flex-col justify-center px-6 md:px-20 py-10">
 
-        <h1 className="font-bold text-3xl md:text-5xl mb-8">
+        <h1 className="font-bold text-2xl md:text-5xl mb-8">
           Design Your Hoodie
         </h1>
 
@@ -59,7 +59,7 @@ function Creatnow() {
           value={choice}
           onChange={(e) => setChoice(e.target.value)}
           className="border text-xl rounded-2xl p-4 w-full h-40 md:h-52 mb-8 focus:outline-none focus:ring-2 focus:ring-purple-500"
-          placeholder="Describe your Design.."
+          placeholder="Describe your Design..  for now try 'Cat Playing Guitar'.'Light Yagami','Aliens in Space',"
         />
 
         {/* COLORS */}

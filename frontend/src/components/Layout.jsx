@@ -10,7 +10,7 @@ import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 
 export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,9 +25,7 @@ export default function Layout() {
     return () => unsubscribe();
   }, []);
 
-
-
- const loginWithGoogle = async () => {
+  const loginWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider);
     const user = auth.currentUser;
 
@@ -40,7 +38,7 @@ export default function Layout() {
         }
       });
     }
-};
+  };
 
   const logout = async () => {
     await signOut(auth);
@@ -72,12 +70,12 @@ export default function Layout() {
   };
 
   const navLinkClass =
-    "cursor-pointer  px-4  py-1.5  rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
+    "cursor-pointer px-4 py-1.5 rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
 
   return (
     <>
       {/* NAVBAR */}
-      <nav className="w-full  md:h-22  max-w-full  py-5 flex items-center justify-between bg-white text-purple-950 shadow-[0_0_15px_0_rgba(0,0,0,0.4)] md:pl-6 px-3">
+      <nav className="w-full md:h-22 max-w-full py-5 flex items-center justify-between bg-white text-purple-950 shadow-[0_0_15px_0_rgba(0,0,0,0.4)] md:pl-6 px-3">
 
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">
@@ -86,7 +84,7 @@ export default function Layout() {
         </NavLink>
 
         {/* DESKTOP MENU */}
-        <ul className="md:flex hidden gap-4  ml-10 items-center  ">
+        <ul className="md:flex hidden gap-4 ml-10 items-center">
           <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
           <li><NavLink to="/designs" className={navLinkClass}>Designs</NavLink></li>
 
@@ -113,10 +111,14 @@ export default function Layout() {
           </li>
         </ul>
 
-        {/* AUTH SECTION (FIXED RESPONSIVE LOGIC) */}
+        {/* AUTH SECTION */}
         <div className="ml-auto flex items-center gap-2">
 
-          {user ? (
+          {user === undefined ? (
+            // Still loading — placeholder to prevent layout shift
+            <div className="mr-4 w-20 h-9 rounded-lg bg-gray-200 animate-pulse" />
+
+          ) : user ? (
             <>
               <img
                 src={user?.photoURL || defaultAvatar}
@@ -128,11 +130,10 @@ export default function Layout() {
                 alt="user"
               />
 
-              <span className="hidden md:block font-semibold md:text-2xl mr-1 ">
+              <span className="hidden md:block font-semibold md:text-2xl mr-1">
                 {user?.displayName || "User"}
               </span>
 
-              {/* Desktop logout only */}
               <button
                 onClick={logout}
                 className="hidden md:block mr-4 px-4 py-2 bg-red-500 text-white rounded-lg font-semibold cursor-pointer text-xl"
@@ -140,17 +141,16 @@ export default function Layout() {
                 Logout
               </button>
             </>
+
           ) : (
-            <>
-              {/* LOGIN visible on BOTH mobile + desktop */}
-              <button
-                onClick={loginWithGoogle}
-                className="mr-4 px-2 py-1 md:px-4 md:py-1.5 md:text-xl bg-purple-700 text-white rounded-lg font-semibold cursor-pointer"
-              >
-                Login
-              </button>
-            </>
+            <button
+              onClick={loginWithGoogle}
+              className="mr-4 px-2 py-1 md:px-4 md:py-1.5 md:text-xl bg-purple-700 text-white rounded-lg font-semibold cursor-pointer"
+            >
+              Login
+            </button>
           )}
+
         </div>
 
         {/* HAMBURGER */}
@@ -201,8 +201,13 @@ export default function Layout() {
             </NavLink>
           </li>
 
-          {/* MOBILE LOGIN / LOGOUT (optional but clean UX) */}
-          {!user ? (
+          {/* MOBILE LOGIN / LOGOUT */}
+          {user === undefined ? (
+            <li className="p-2 pl-10">
+              <div className="w-20 h-9 rounded-lg bg-gray-200 animate-pulse" />
+            </li>
+
+          ) : !user ? (
             <li className="p-2 pl-10">
               <button
                 onClick={() => {
@@ -214,6 +219,7 @@ export default function Layout() {
                 Login
               </button>
             </li>
+
           ) : (
             <li className="p-2 pl-10">
               <button
@@ -227,6 +233,7 @@ export default function Layout() {
               </button>
             </li>
           )}
+
         </ul>
       )}
 

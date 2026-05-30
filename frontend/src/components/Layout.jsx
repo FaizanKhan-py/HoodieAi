@@ -115,7 +115,6 @@ export default function Layout() {
         <div className="ml-auto flex items-center gap-2">
 
           {user === undefined ? (
-            // Still loading — placeholder to prevent layout shift
             <div className="mr-4 w-20 h-9 rounded-lg bg-gray-200 animate-pulse" />
 
           ) : user ? (
@@ -130,8 +129,8 @@ export default function Layout() {
                 alt="user"
               />
 
-              <span className="hidden md:block font-semibold md:text-2xl mr-1">
-                {user?.displayName || "User"}
+              <span className="hidden md:block font-semibold md:text-xl mr-1">
+                {user?.displayName?.split(" ")[0] || "User"}
               </span>
 
               <button

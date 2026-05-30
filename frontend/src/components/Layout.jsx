@@ -70,7 +70,7 @@ export default function Layout() {
   };
 
   const navLinkClass =
-    "cursor-pointer  px-4 text-xl py-1.5  rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
+    "cursor-pointer  px-4  py-1.5  rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
 
   return (
     <>

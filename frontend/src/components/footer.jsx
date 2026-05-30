@@ -4,7 +4,7 @@ export default function Footer() {
       {/* Top Row */}
       <div className="flex justify-between items-start flex-wrap gap-8">
         {/* Logo */}
-        <div className="font-black text-7xl tracking-tighter leading-none "
+        <div className="font-black md:text-7xl text-4xl tracking-tighter leading-none "
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
           HoodieAI
         </div>
@@ -12,7 +12,7 @@ export default function Footer() {
         {/* Nav Groups */}
         <div className="flex gap-16 flex-wrap">
           {/* Column 1 */}
-          <div className="flex flex-col gap-3 text-right">
+          <div className="flex flex-col md:gap-3 text-right">
             {["Shopping Guide", "Log In / Sign Up", "Exchange & Returns", "Shipping & Deliveries", "How To Buy", "Payment"].map((item) => (
               <a key={item} href="#"
                 className="text-white text-[13px] font-normal tracking-wide leading-none hover:opacity-50 transition-opacity duration-200">
@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2 */}
-          <div className="flex flex-col gap-3 text-right">
+          <div className="flex flex-col md:gap-3 text-right">
             {["About Us", "Retail Stores", "Contact Us"].map((item) => (
               <a key={item} href="#"
                 className="text-white text-[13px] font-normal tracking-wide leading-none hover:opacity-50 transition-opacity duration-200">

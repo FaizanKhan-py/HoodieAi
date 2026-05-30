@@ -4,7 +4,7 @@ export default function Footer() {
       {/* Top Row */}
       <div className="flex justify-between items-start flex-wrap gap-8">
         {/* Logo */}
-        <div className="font-black text-7xl tracking-tighter leading-none uppercase"
+        <div className="font-black text-7xl tracking-tighter leading-none "
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
           HoodieAI
         </div>
@@ -35,7 +35,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="text-right text-[12px] text-white/70 mt-10 tracking-wide">
-        © Copyrights Reserved by Hoodie Sys 2025
+        © Copyrights Reserved by Hoodie AI 2025
       </div>
     </footer>
   );

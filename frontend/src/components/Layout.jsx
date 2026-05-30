@@ -84,7 +84,7 @@ export default function Layout() {
         </NavLink>
 
         {/* DESKTOP MENU */}
-        <ul className="md:flex hidden gap-4 ml-10 items-center">
+        <ul className="md:flex hidden gap-4 ml-10 items-center whitespace-nowrap">
           <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
           <li><NavLink to="/designs" className={navLinkClass}>Designs</NavLink></li>
 

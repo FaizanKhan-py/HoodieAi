@@ -51,7 +51,7 @@ export default function ProtectedRoute({ children }) {
             </p>
             <button
               onClick={loginWithGoogle}
-              className="w-full py-2 bg-purple-600 hover:bg-purple-800 text-white font-semibold rounded-3xl transition"
+              className="cursor-pointer w-full py-2 bg-purple-600 hover:bg-purple-800 text-white font-semibold rounded-3xl transition"
             >
               Login with Google
             </button>

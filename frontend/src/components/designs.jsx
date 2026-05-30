@@ -75,14 +75,14 @@ export default function Designs() {
         {designs.map((design, index) => (
           <article
             key={design.title}
-            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl shadow-black/40 backdrop-blur transition-transform duration-300 hover:-translate-y-1 hover:shadow-purple-900/20"
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl shadow-black/40 backdrop-blur"
           >
             {/* Image */}
             <div className={`relative h-72 w-full bg-gradient-to-br ${design.accent}`}>
               <img
                 src={design.image}
                 alt={design.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 

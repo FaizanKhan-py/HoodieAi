@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if (!currentUser) setShowModal(true); // show modal if not logged in
+      if (!currentUser) setShowModal(true);
     });
     return () => unsubscribe();
   }, []);
@@ -19,13 +19,10 @@ export default function ProtectedRoute({ children }) {
     setShowModal(false);
   };
 
-  // Still checking auth state
   if (user === undefined) return null;
 
-  // Logged in
   if (user) return children;
 
-  // Not logged in — show modal over a blurred background
   return (
     <>
       {/* Blurred background */}
@@ -35,7 +32,7 @@ export default function ProtectedRoute({ children }) {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 top-22 flex items-center justify-center z-40">
           <div className="bg-white text-black rounded-2xl p-8 shadow-2xl flex flex-col items-center gap-4 w-80">
             <h2 className="text-2xl font-bold text-purple-800">Sign in Required</h2>
             <p className="text-gray-600 text-center">
@@ -43,7 +40,7 @@ export default function ProtectedRoute({ children }) {
             </p>
             <button
               onClick={loginWithGoogle}
-              className="cursor-pointer w-full py-2 bg-purple-600 hover:bg-purple-800 text-white font-semibold rounded-3xl transition"
+              className="w-full py-2 bg-purple-600 hover:bg-purple-800 text-white font-semibold rounded-3xl transition"
             >
               Login with Google
             </button>

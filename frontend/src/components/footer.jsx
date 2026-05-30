@@ -40,7 +40,7 @@ export default function Footer() {
       <footer className="hidden md:flex bg-black text-white px-14 pt-12 pb-7 flex-col justify-between min-h-[220px]">
 
         <div className="flex justify-between items-start flex-wrap gap-8">
-          <div className="font-black text-7xl tracking-tighter leading-none uppercase"
+          <div className="font-black text-7xl tracking-tighter leading-none "
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
             HoodieAI
           </div>

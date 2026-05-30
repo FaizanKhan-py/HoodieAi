@@ -70,12 +70,12 @@ export default function Layout() {
   };
 
   const navLinkClass =
-    "cursor-pointer px-4 py-1.5  rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
+    "cursor-pointer  px-4 text-xl py-1.5  rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
 
   return (
     <>
       {/* NAVBAR */}
-      <nav className="w-full md:h-28  max-w-full  py-5 flex items-center justify-between bg-white text-purple-950 shadow-[0_0_15px_0_rgba(0,0,0,0.4)] md:pl-6 px-3">
+      <nav className="w-full  md:h-28  max-w-full  py-5 flex items-center justify-between bg-white text-purple-950 shadow-[0_0_15px_0_rgba(0,0,0,0.4)] md:pl-6 px-3">
 
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">

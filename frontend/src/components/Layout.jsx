@@ -125,7 +125,7 @@ export default function Layout() {
                   e.target.src = defaultAvatar;
                 }}
                 referrerPolicy="no-referrer"
-                className="h-9 w-9 md:h-9 md:w-9 rounded-full object-cover border"
+                className="h-9 w-9 md:h-12 md:w-12 rounded-full object-cover border"
                 alt="user"
               />
 

@@ -25,12 +25,7 @@ export default function Layout() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-  const params = new URLSearchParams(location.search);
-  if (params.get("login") === "true") {
-    loginWithGoogle();
-  }
-}, [location.search]);
+
 
  const loginWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider);

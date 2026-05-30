@@ -69,17 +69,17 @@ function Creatnow() {
           <div className="flex gap-5">
             <label>
               <input type="radio" name="color" value="black" className="hidden peer" />
-              <div className="w-12 h-12 bg-black border-3 border-black peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
+              <div className="w-10 h-10 bg-black border-3 border-black peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
             </label>
 
             <label>
               <input type="radio" name="color" value="white" className="hidden peer" />
-              <div className="w-12 h-12 bg-white border-3 border-white peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
+              <div className="w-10 h-10 bg-white border-3 border-white peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
             </label>
 
             <label>
               <input type="radio" name="color" value="red" className="hidden peer" />
-              <div className="w-12 h-12 bg-red-700 border-3 border-red-700 peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
+              <div className="w-10 h-10 bg-red-700 border-3 border-red-700 peer-checked:border-purple-600 rounded-md cursor-pointer"></div>
             </label>
           </div>
         </div>
@@ -87,14 +87,14 @@ function Creatnow() {
         <div className='flex justify-between'>
  <button
           onClick={generateImage}
-          className="text-xl cursor-pointer w-full md:w-fit px-6 py-3 border-1 border-purple-500 bg-purple-500 rounded-3xl font-semibold hover:bg-blue-900 hover:border-blue-900 transition"
+          className=" cursor-pointer w-full md:w-fit px-4 py-2 border-1 border-purple-500 bg-purple-500 rounded-3xl font-semibold hover:bg-blue-900 hover:border-blue-900 transition"
         >
           Generate Design
         </button>
 
          <button
           
-          className="text-xl cursor-pointer w-full md:w-fit px-6 py-3 border-1 border-purple-500 bg-purple-500 rounded-3xl font-semibold hover:bg-blue-900 hover:border-blue-900 transition"
+          className="cursor-pointer w-full md:w-fit px-4 py-2 border-1 border-purple-500 bg-purple-500 rounded-3xl font-semibold hover:bg-blue-900 hover:border-blue-900 transition"
         >
           Place Order 
         </button>

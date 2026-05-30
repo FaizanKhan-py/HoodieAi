@@ -52,18 +52,16 @@ function Creatnow() {
       {/* ── MOBILE LAYOUT ── */}
       <div className="flex flex-col md:hidden mt-9">
 
-        {/* Mobile: Image on top */}
-        <div className="relative w-full h-72 flex items-center justify-center bg-white/5 rounded-b-3xl overflow-hidden">
+        {/* Mobile: Image on top — no wrapper div, just image */}
+        <div className="relative w-full flex items-center justify-center pt-4">
           <img
             src={imageUrl || defaultimg}
             alt="Hoodie"
-            className="h-full w-full object-cover"
+            className="w-72 h-72 object-contain rounded-3xl"
           />
-          {/* subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
 
           {loading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+            <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
                 <p className="text-white text-sm font-medium tracking-widest uppercase">Generating...</p>
@@ -122,7 +120,7 @@ function Creatnow() {
               onClick={generateImage}
               className="flex-1 py-3 bg-purple-600 hover:bg-purple-700 active:scale-95 rounded-2xl font-semibold text-white transition-all duration-200 text-sm"
             >
-               Generate
+              Generate
             </button>
             <button
               className="flex-1 py-3 border border-purple-500 hover:bg-purple-500/20 active:scale-95 rounded-2xl font-semibold text-purple-300 transition-all duration-200 text-sm"
@@ -156,7 +154,7 @@ function Creatnow() {
           <textarea
             value={choice}
             onChange={(e) => setChoice(e.target.value)}
-            className="border border-white/10 bg-white/9 text-lg rounded-2xl p-5 w-full h-52 focus:outline-none  resize-none placeholder-gray-500"
+            className="border border-white/10 bg-white/9 text-lg rounded-2xl p-5 w-full h-52 focus:outline-none resize-none placeholder-gray-500"
             placeholder="Try 'Cat Playing Guitar', 'Light Yagami', 'Aliens in Space'..."
           />
 
@@ -193,12 +191,12 @@ function Creatnow() {
           <div className="flex gap-4">
             <button
               onClick={generateImage}
-              className="px-8 py-3 bg-purple-600 hover:bg-purple-700 active:scale-95 rounded-2xl font-semibold text-white transition-all duration-200 text-base"
+              className="cursor-pointer px-8 py-3 bg-purple-600 hover:bg-purple-700 active:scale-95 rounded-2xl font-semibold text-white transition-all duration-200 text-base"
             >
-               Generate Design
+              Generate Design
             </button>
             <button
-              className="px-8 py-3 border border-purple-500 hover:bg-purple-500/20 active:scale-95 rounded-2xl font-semibold text-purple-300 transition-all duration-200 text-base"
+              className="cursor-pointer px-8 py-3 border border-purple-500 hover:bg-purple-500/20 active:scale-95 rounded-2xl font-semibold text-purple-300 transition-all duration-200 text-base"
             >
               Place Order
             </button>

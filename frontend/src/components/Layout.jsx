@@ -107,7 +107,7 @@ export default function Layout() {
           </li>
 
           <li>
-            <img src={shoppingbag} alt="" width={50} className="ml-84" />
+            <img src={shoppingbag} alt="" width={40} className="ml-9" />
           </li>
         </ul>
 

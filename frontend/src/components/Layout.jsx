@@ -135,7 +135,7 @@ export default function Layout() {
               {/* Desktop logout only */}
               <button
                 onClick={logout}
-                className="hidden md:block mr-4 px-4 py-2 bg-red-500 text-white rounded-lg font-semibold cursor-pointer text-2xl"
+                className="hidden md:block mr-4 px-4 py-2 bg-red-500 text-white rounded-lg font-semibold cursor-pointer text-xl"
               >
                 Logout
               </button>
@@ -145,7 +145,7 @@ export default function Layout() {
               {/* LOGIN visible on BOTH mobile + desktop */}
               <button
                 onClick={loginWithGoogle}
-                className="mr-4 px-2 py-1 md:px-4 md:py-1.5 md:text-2xl bg-purple-700 text-white rounded-lg font-semibold cursor-pointer"
+                className="mr-4 px-2 py-1 md:px-4 md:py-1.5 md:text-xl bg-purple-700 text-white rounded-lg font-semibold cursor-pointer"
               >
                 Login
               </button>

@@ -31,7 +31,7 @@ export default function Home() {
       
       <br />
       <div className="md:px-6 px-4 md:mb-20">
-        <h1 className="md:text-7xl font-bold text-white text-xl">
+        <h1 className="md:text-3xl font-bold text-white text-xl">
           Design your custom <br /> Hoodie with AI
         </h1>
         <br />

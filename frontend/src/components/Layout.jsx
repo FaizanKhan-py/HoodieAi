@@ -80,7 +80,7 @@ export default function Layout() {
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">
           <img className="md:h-14 h-11 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
-          <p className="md:text-2xl font-extrabold">HoodieAI</p>
+          <p className="text-2xl font-extrabold">HoodieAI</p>
         </NavLink>
 
         {/* DESKTOP MENU */}
@@ -169,7 +169,7 @@ export default function Layout() {
 
       {/* MOBILE MENU */}
       {isOpen && (
-        <ul className="md:hidden bg-white shadow-2xl py-4 font-semibold text-gray-700 text-xl w-full">
+        <ul style={{ fontFamily: "'Cormorant Garamond', serif" }} className="md:hidden bg-white shadow-2xl py-4 font-semibold text-gray-700 text-xl w-full">
 
           <li className="p-2 pl-10">
             <NavLink to="/" onClick={() => setIsOpen(false)} className={navLinkClass}>

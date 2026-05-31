@@ -154,7 +154,7 @@ export default function Layout() {
   <img
     src={shoppingbag}
     alt="Cart"
-    className="m-2 cursor-pointer hover:opacity-80 transition w-2 md:w-10"
+    className="m-2 cursor-pointer hover:opacity-80 transition w-7 md:w-10"
   />
 </NavLink>
 

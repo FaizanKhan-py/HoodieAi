@@ -48,7 +48,7 @@ export default function Cart() {
           <h2 className="text-2xl font-semibold">Your cart is empty</h2>
           <p className="text-gray-400">Looks like you haven't added anything yet.</p>
           <Link to="/create">
-            <button className="mt-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-2xl font-semibold transition">
+            <button className="cursor-pointer mt-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-2xl font-semibold transition">
               Create a Hoodie
             </button>
           </Link>

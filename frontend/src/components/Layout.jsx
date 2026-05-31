@@ -79,8 +79,8 @@ export default function Layout() {
 
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">
-          <img className="h-14 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
-          <p className="text-xl font-bold">HoodieAI</p>
+          <img className="md:h-14 h-8 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
+          <p className="md:text-xl font-bold">HoodieAI</p>
         </NavLink>
 
         {/* DESKTOP MENU */}
@@ -106,16 +106,7 @@ export default function Layout() {
             </NavLink>
           </li>
 
-          <li>
-  <NavLink to="/cart">
-    <img
-      src={shoppingbag}
-      alt="Cart"
-      width={40}
-      className="ml-9 cursor-pointer hover:opacity-80 transition "
-    />
-  </NavLink>
-</li>
+          
         </ul>
 
         {/* AUTH SECTION */}
@@ -158,6 +149,16 @@ export default function Layout() {
           )}
 
         </div>
+        <li>
+  <NavLink to="/cart">
+    <img
+      src={shoppingbag}
+      alt="Cart"
+      width={40}
+      className="ml-9 cursor-pointer hover:opacity-80 transition "
+    />
+  </NavLink>
+</li>
 
         {/* HAMBURGER */}
         <div className="md:hidden ml-2">

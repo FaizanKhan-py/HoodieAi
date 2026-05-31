@@ -142,14 +142,14 @@ export default function Layout() {
           ) : (
             <button
               onClick={loginWithGoogle}
-              className="mr-4 px-2 py-1 md:px-4 md:py-1.5 md:text-xl bg-purple-700 text-white rounded-lg font-semibold cursor-pointer"
+              className=" px-2 py-1 md:px-4 md:py-1.5 md:text-xl bg-purple-700 text-white rounded-lg font-semibold cursor-pointer"
             >
               Login
             </button>
           )}
 
         </div>
-        <li>
+        
   <NavLink to="/cart">
     <img
       src={shoppingbag}
@@ -158,7 +158,7 @@ export default function Layout() {
       className="ml-9 cursor-pointer hover:opacity-80 transition "
     />
   </NavLink>
-</li>
+
 
         {/* HAMBURGER */}
         <div className="md:hidden ml-2">

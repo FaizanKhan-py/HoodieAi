@@ -220,7 +220,7 @@ export default function Layout() {
                   loginWithGoogle();
                   setIsOpen(false);
                 }}
-                className={navLinkClass + " w-full text-left text-white"}
+                className={navLinkClass}
               >
                 Login
               </button>

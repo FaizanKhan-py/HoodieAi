@@ -5,7 +5,7 @@ export default  function Howitworks(){
     <br />
     <br />
 
-        <p className="flex justify-center text-xl font-bold " >How to Make your Own hoodies Designs?</p>
+        <h2 className="flex justify-center text-xl font-bold " >How to Make your Own hoodies Designs?</h2>
   
         <br />
         <br />

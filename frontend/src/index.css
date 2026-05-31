@@ -2,7 +2,8 @@
 
 
 
-h2,h3,h4,h5,h6,nav {
-  font-family: 'Cormorant Garamond', serif;
-}
 
+nav, nav a, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 900;
+}

@@ -112,7 +112,7 @@ export default function Layout() {
       src={shoppingbag}
       alt="Cart"
       width={40}
-      className="ml-9 cursor-pointer hover:opacity-80 transition"
+      className="ml-9 cursor-pointer hover:opacity-80 transition "
     />
   </NavLink>
 </li>

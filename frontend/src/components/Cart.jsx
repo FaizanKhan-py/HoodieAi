@@ -97,14 +97,14 @@ export default function Cart() {
                     <div className="flex items-center gap-3 bg-white/10 rounded-xl px-3 py-1">
                       <button
                         onClick={() => updateQuantity(item.id, -1)}
-                        className="text-lg font-bold hover:text-purple-400 transition"
+                        className="text-lg font-bold hover:text-purple-400 transition cursor-pointer"
                       >
                         −
                       </button>
                       <span className="text-sm font-semibold w-4 text-center">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, 1)}
-                        className="text-lg font-bold hover:text-purple-400 transition"
+                        className="text-lg font-bold hover:text-purple-400 transition cursor-pointer"
                       >
                         +
                       </button>
@@ -144,7 +144,7 @@ export default function Cart() {
               <span className="text-purple-300">₨ {total.toLocaleString()}</span>
             </div>
 
-            <button className="w-full py-3 bg-purple-600 hover:bg-purple-700 active:scale-95 rounded-2xl font-semibold text-white transition-all duration-200">
+            <button className="cursor-pointer w-full py-3 bg-purple-600 hover:bg-purple-700 active:scale-95 rounded-2xl font-semibold text-white transition-all duration-200">
               Place Order
             </button>
 

@@ -86,7 +86,7 @@ export default function Cart() {
                     </div>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-gray-500 hover:text-red-400 transition text-lg leading-none"
+                      className="cursor-pointer text-gray-500 hover:text-red-400 transition text-lg leading-none"
                     >
                       ✕
                     </button>

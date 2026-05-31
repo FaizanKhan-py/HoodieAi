@@ -107,8 +107,15 @@ export default function Layout() {
           </li>
 
           <li>
-            <img src={shoppingbag} alt="" width={40} className="ml-9" />
-          </li>
+  <NavLink to="/cart">
+    <img
+      src={shoppingbag}
+      alt="Cart"
+      width={40}
+      className="ml-9 cursor-pointer hover:opacity-80 transition"
+    />
+  </NavLink>
+</li>
         </ul>
 
         {/* AUTH SECTION */}

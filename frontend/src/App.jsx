@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Creatnow from './components/createnow'
 import Designs from './components/designs'
 import ProtectedRoute from './components/ProtectedRoute'
+import Cart from './components/Cart'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="designs" element={<Designs />} />
+          <Route path="cart" element={<Cart />} /> 
           <Route
             path="create"
             element={

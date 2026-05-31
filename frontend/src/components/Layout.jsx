@@ -79,7 +79,7 @@ export default function Layout() {
 
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">
-          <img className="md:h-14 h-8 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
+          <img className="md:h-14 h-11 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
           <p className="md:text-xl font-bold">HoodieAI</p>
         </NavLink>
 
@@ -151,13 +151,12 @@ export default function Layout() {
         </div>
         
   <NavLink to="/cart">
-    <img
-      src={shoppingbag}
-      alt="Cart"
-      width={40}
-      className="ml-9 cursor-pointer hover:opacity-80 transition "
-    />
-  </NavLink>
+  <img
+    src={shoppingbag}
+    alt="Cart"
+    className=" cursor-pointer hover:opacity-80 transition w-30 md:w-40"
+  />
+</NavLink>
 
 
         {/* HAMBURGER */}

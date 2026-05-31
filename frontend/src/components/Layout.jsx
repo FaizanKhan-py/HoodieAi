@@ -70,7 +70,7 @@ export default function Layout() {
   };
 
   const navLinkClass =
-    "text-xl font-['Cormorant_Garamond'] cursor-pointer px-4 py-1.5 rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
+    "text-xl  cursor-pointer px-4 py-1.5 rounded-lg font-semibold text-purple-950 hover:bg-purple-800 hover:text-white transition";
 
   return (
     <>
@@ -80,7 +80,7 @@ export default function Layout() {
         {/* LOGO */}
         <NavLink to="/" className="pl-4 flex items-center gap-4 cursor-pointer">
           <img className="md:h-14 h-11 rounded-2xl" src={Logo} alt="HoodieAI Logo" />
-          <p className="md:text-xl font-bold">HoodieAI</p>
+          <p className="md:text-2xl font-extrabold">HoodieAI</p>
         </NavLink>
 
         {/* DESKTOP MENU */}

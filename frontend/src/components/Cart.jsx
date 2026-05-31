@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import shoppingbag from "../Pictures/shopping-bag.png";
 
 // dummy data for now — replace with real cart state/API later
 const initialItems = [
@@ -44,7 +45,11 @@ export default function Cart() {
       {items.length === 0 ? (
         /* ── EMPTY STATE ── */
         <div className="flex flex-col items-center justify-center gap-5 mt-24 text-center">
-          <p className="text-6xl">🛒</p>
+          <img
+  src={shoppingbag}
+  alt=""
+  className="md:w-40 w-20 filter invert"
+/>
           <h2 className="text-2xl font-semibold">Your cart is empty</h2>
           <p className="text-gray-400">Looks like you haven't added anything yet.</p>
           <Link to="/create">

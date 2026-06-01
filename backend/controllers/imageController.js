@@ -4,7 +4,7 @@ const generateImage = async (req, res) => {
     return res.status(400).json({ error: "message is required" });
   }
 
-  const fullPrompt = `${prompt}, graphic design, sticker art, transparent background, centered, clean edges, no background, isolated artwork, t-shirt print style`;
+  const fullPrompt = `${prompt}, graphic design artwork, sticker style, white background, centered, clean illustration, no text, t-shirt print ready`;
 
   try {
     const encodedPrompt = encodeURIComponent(fullPrompt);

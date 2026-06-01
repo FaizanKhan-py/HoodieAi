@@ -15,50 +15,85 @@ function Creatnow() {
   const navigate = useNavigate();
 
   // ── Merge AI graphic onto hoodie canvas ──
-  const mergeWithHoodie = (designUrl, hoodieColor) => {
-    return new Promise((resolve) => {
-      const canvas = document.createElement("canvas");
-      canvas.width = 500;
-      canvas.height = 580;
-      const ctx = canvas.getContext("2d");
+const mergeWithHoodie = (designUrl, hoodieColor) => {
+  return new Promise((resolve) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 500;
+    canvas.height = 580;
+    const ctx = canvas.getContext("2d");
 
-      const hoodie = new Image();
-      hoodie.src = defaultimg;
+    const hoodie = new Image();
+    hoodie.src = defaultimg;
 
-      hoodie.onload = () => {
-        // Draw base hoodie
-        ctx.drawImage(hoodie, 0, 0, 500, 580);
+    hoodie.onload = () => {
+      // Draw base hoodie
+      ctx.drawImage(hoodie, 0, 0, 500, 580);
 
-        // Apply color tint
-        if (hoodieColor === "white") {
-          ctx.globalCompositeOperation = "lighten";
-          ctx.fillStyle = "rgba(255,255,255,0.75)";
-          ctx.fillRect(0, 0, 500, 580);
-          ctx.globalCompositeOperation = "source-over";
-        } else if (hoodieColor === "red") {
-          ctx.globalCompositeOperation = "multiply";
-          ctx.fillStyle = "rgba(180,30,30,0.8)";
-          ctx.fillRect(0, 0, 500, 580);
-          ctx.globalCompositeOperation = "source-over";
+      // Apply color tint
+      if (hoodieColor === "white") {
+        ctx.globalCompositeOperation = "lighten";
+        ctx.fillStyle = "rgba(255,255,255,0.75)";
+        ctx.fillRect(0, 0, 500, 580);
+        ctx.globalCompositeOperation = "source-over";
+      } else if (hoodieColor === "red") {
+        ctx.globalCompositeOperation = "multiply";
+        ctx.fillStyle = "rgba(180,30,30,0.8)";
+        ctx.fillRect(0, 0, 500, 580);
+        ctx.globalCompositeOperation = "source-over";
+      }
+
+      // Draw AI design on chest
+      const design = new Image();
+      design.src = designUrl;
+
+      design.onload = () => {
+        const designSize = 160;
+        const x = (500 - designSize) / 2;
+        const y = 200; // chest position
+
+        // ── TEMP CANVAS (REMOVE WHITE BACKGROUND) ──
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = designSize;
+        tempCanvas.height = designSize;
+
+        const tempCtx = tempCanvas.getContext("2d");
+
+        tempCtx.drawImage(design, 0, 0, designSize, designSize);
+
+        const imageData = tempCtx.getImageData(0, 0, designSize, designSize);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+
+          const isWhite =
+            r > 235 &&
+            g > 235 &&
+            b > 235 &&
+            Math.abs(r - g) < 10 &&
+            Math.abs(g - b) < 10;
+
+          if (isWhite) {
+            data[i + 3] = 0; // make transparent
+          }
         }
 
-        // Draw AI design on chest
-        const design = new Image();
-        design.src = designUrl;
-        design.onload = () => {
-          const designSize = 160;
-          const x = (500 - designSize) / 2;
-          const y = 175; // chest position
-          ctx.drawImage(design, x, y, designSize, designSize);
-          resolve(canvas.toDataURL("image/png"));
-        };
-        design.onerror = () => {
-          // If design fails, still resolve with just the hoodie
-          resolve(canvas.toDataURL("image/png"));
-        };
+        tempCtx.putImageData(imageData, 0, 0);
+
+        // Draw cleaned design on hoodie
+        ctx.drawImage(tempCanvas, x, y, designSize, designSize);
+
+        resolve(canvas.toDataURL("image/png"));
       };
-    });
-  };
+
+      design.onerror = () => {
+        resolve(canvas.toDataURL("image/png"));
+      };
+    };
+  });
+};
 
   const generateImage = async (e) => {
     e.preventDefault();

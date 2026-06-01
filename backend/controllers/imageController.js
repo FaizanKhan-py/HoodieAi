@@ -8,32 +8,19 @@ const generateImage = async (req, res) => {
   }
 
   try {
-    const hfRes = await fetch(
-      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.HF_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputs: `hoodie graphic design, ${prompt}, high quality, centered, flat design, white background`,
-        }),
-      }
+    const encodedPrompt = encodeURIComponent(
+      `hoodie graphic design, ${prompt}, high quality, centered, flat design, white background`
     );
 
-    // Model is still loading (cold start) — tell frontend to retry
-    if (hfRes.status === 503) {
-      return res.status(503).json({ error: "Model loading, please retry in 20 seconds" });
-    }
+    const hfRes = await fetch(
+      `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&nologo=true`,
+      { method: "GET" }
+    );
 
     if (!hfRes.ok) {
-      const errText = await hfRes.text();
-      console.error("HF Error:", errText);
       return res.status(500).json({ error: "Image generation failed" });
     }
 
-    // Stream the image blob directly back to frontend
     const arrayBuffer = await hfRes.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 

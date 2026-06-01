@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import shoppingbag from "../Pictures/shopping-bag.png";
-import { useCart } from '../context/CartContext';
+import { useCart } from '../Context/CartContext';
 
 export default function Cart() {
   const { items, updateQuantity, removeItem } = useCart();

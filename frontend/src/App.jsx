@@ -6,11 +6,11 @@ import Creatnow from './components/createnow'
 import Designs from './components/designs'
 import ProtectedRoute from './components/ProtectedRoute'
 import Cart from './components/Cart'
-import { CartProvider } from './context/CartState'   // 👈 add this
+import { CartProvider } from './Context/CartState'   
 
 function App() {
   return (
-    <CartProvider>   {/* 👈 wrap here */}
+    <CartProvider>  
       <div className="min-h-screen bg-gradient-to-r from-purple-950 to-black text-white">
         <Routes>
           <Route path="/" element={<Layout />}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import defaultimg from '../Pictures/Defualthoodie.png';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../Context/CartContext';
 
 function Creatnow() {
   const [choice, setChoice] = useState("");

@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="designs" element={<Designs />} />
-            <Route path="cart" element={<Cart />} />
+            <Route path="cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
             <Route
               path="create"
               element={

@@ -8,11 +8,57 @@ function Creatnow() {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-  const [added, setAdded] = useState(false);   // brief feedback flash
+  const [selectedColor, setSelectedColor] = useState("black");
+  const [added, setAdded] = useState(false);
 
   const { addToCart } = useCart();
   const navigate = useNavigate();
+
+  // ── Merge AI graphic onto hoodie canvas ──
+  const mergeWithHoodie = (designUrl, hoodieColor) => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 500;
+      canvas.height = 580;
+      const ctx = canvas.getContext("2d");
+
+      const hoodie = new Image();
+      hoodie.src = defaultimg;
+
+      hoodie.onload = () => {
+        // Draw base hoodie
+        ctx.drawImage(hoodie, 0, 0, 500, 580);
+
+        // Apply color tint
+        if (hoodieColor === "white") {
+          ctx.globalCompositeOperation = "lighten";
+          ctx.fillStyle = "rgba(255,255,255,0.75)";
+          ctx.fillRect(0, 0, 500, 580);
+          ctx.globalCompositeOperation = "source-over";
+        } else if (hoodieColor === "red") {
+          ctx.globalCompositeOperation = "multiply";
+          ctx.fillStyle = "rgba(180,30,30,0.8)";
+          ctx.fillRect(0, 0, 500, 580);
+          ctx.globalCompositeOperation = "source-over";
+        }
+
+        // Draw AI design on chest
+        const design = new Image();
+        design.src = designUrl;
+        design.onload = () => {
+          const designSize = 160;
+          const x = (500 - designSize) / 2;
+          const y = 175; // chest position
+          ctx.drawImage(design, x, y, designSize, designSize);
+          resolve(canvas.toDataURL("image/png"));
+        };
+        design.onerror = () => {
+          // If design fails, still resolve with just the hoodie
+          resolve(canvas.toDataURL("image/png"));
+        };
+      };
+    });
+  };
 
   const generateImage = async (e) => {
     e.preventDefault();
@@ -28,23 +74,23 @@ function Creatnow() {
         body: JSON.stringify({ message: choice.toLowerCase() })
       });
 
-     if (!res.ok) {
-  setLoading(false);
-  if (res.status === 503) {
-    setError("Model is warming up, please try again in 20 seconds.");
-  } else {
-    setError("Failed to generate image. Try a different prompt.");
-  }
-  return;
-}
+      if (!res.ok) {
+        setLoading(false);
+        if (res.status === 503) {
+          setError("Model is warming up, please try again in 20 seconds.");
+        } else {
+          setError("Failed to generate image. Try a different prompt.");
+        }
+        return;
+      }
 
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
+      const designUrl = URL.createObjectURL(blob);
 
-      setTimeout(() => {
-        setImageUrl(url);
-        setLoading(false);
-      }, 2000);
+      // Overlay design on hoodie
+      const mergedUrl = await mergeWithHoodie(designUrl, selectedColor || "black");
+      setImageUrl(mergedUrl);
+      setLoading(false);
 
     } catch (err) {
       console.error(err);
@@ -53,8 +99,27 @@ function Creatnow() {
     }
   };
 
+  // Re-merge when color changes (if image already generated)
+  const handleColorChange = async (color) => {
+    setSelectedColor(color);
+    if (imageUrl) {
+      setLoading(true);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/image/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: choice.toLowerCase() })
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const designUrl = URL.createObjectURL(blob);
+        const mergedUrl = await mergeWithHoodie(designUrl, color);
+        setImageUrl(mergedUrl);
+      }
+      setLoading(false);
+    }
+  };
+
   const handleAddToCart = () => {
-    // Guard: must have generated an image first
     if (!imageUrl) {
       setError("Please generate a design first.");
       return;
@@ -71,8 +136,6 @@ function Creatnow() {
     });
 
     setAdded(true);
-
-    // Navigate to cart after a short delay so the user sees the flash
     setTimeout(() => navigate("/cart"), 800);
   };
 
@@ -95,7 +158,7 @@ function Creatnow() {
           />
 
           {loading && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-3xl">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
                 <p className="text-white text-sm font-medium tracking-widest uppercase">Generating...</p>
@@ -134,7 +197,7 @@ function Creatnow() {
                     name="color"
                     value={value}
                     className="hidden"
-                    onChange={() => setSelectedColor(value)}
+                    onChange={() => handleColorChange(value)}
                   />
                   <div className={`
                     w-9 h-9 rounded-xl ${bg} border-2 ${border}
@@ -212,7 +275,7 @@ function Creatnow() {
                     name="color"
                     value={value}
                     className="hidden"
-                    onChange={() => setSelectedColor(value)}
+                    onChange={() => handleColorChange(value)}
                   />
                   <div className={`
                     w-10 h-10 rounded-xl ${bg} border-2 ${border}

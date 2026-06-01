@@ -49,7 +49,7 @@ const mergeWithHoodie = (designUrl, hoodieColor) => {
       design.onload = () => {
         const designSize = 160;
         const x = (500 - designSize) / 2;
-        const y = 200; // chest position
+        const y = 230; // chest position
 
         // ── TEMP CANVAS (REMOVE WHITE BACKGROUND) ──
         const tempCanvas = document.createElement("canvas");

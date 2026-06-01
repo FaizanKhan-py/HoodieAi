@@ -7,31 +7,50 @@ const generateImage = async (req, res) => {
     return res.status(400).json({ error: "message is required" });
   }
 
+  const HF_TOKEN = process.env.HF_TOKEN; // Add this to your .env
+
+  // Craft a strong, specific hoodie prompt
+  const fullPrompt = `flat lay product photography of a black oversized hoodie, center chest graphic design: ${prompt}, white studio background, soft shadows, e-commerce product shot, high detail fabric texture, 4k, professional apparel photography`;
+
+  const negativePrompt = `person wearing it, model, mannequin, blurry, low quality, text, watermark, distorted`;
+
   try {
-    const encodedPrompt = encodeURIComponent(
-      `Create a realistic product mockup of a premium oversized hoodie.
-
-Place the provided design image exactly as it is on the center chest area.
-Do not modify the design.
-Do not change typography.
-Do not redesign it.
-Realistic fabric folds.
-Studio lighting.
-Photorealistic.
-E-commerce style.
-4K resolution.
-Minimal background.
-
-Design description: ${prompt}`,
-    );
-
+    // Option 1: FLUX.1-schnell (fastest, great quality)
     const hfRes = await fetch(
-      `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&nologo=true`,
-      { method: "GET" },
+      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${HF_TOKEN}`,
+          "Content-Type": "application/json",
+          "x-wait-for-model": "true", // Wait if model is loading
+        },
+        body: JSON.stringify({
+          inputs: fullPrompt,
+          parameters: {
+            width: 512,
+            height: 512,
+            num_inference_steps: 4, // FLUX schnell works great at 4 steps
+            guidance_scale: 3.5,
+          },
+        }),
+      },
     );
 
     if (!hfRes.ok) {
-      return res.status(500).json({ error: "Image generation failed" });
+      const errText = await hfRes.text();
+      console.error("HF Error:", errText);
+
+      // If model is loading, HF returns 503 — tell frontend to retry
+      if (hfRes.status === 503) {
+        return res
+          .status(503)
+          .json({ error: "Model loading, please retry in 20 seconds" });
+      }
+
+      return res
+        .status(500)
+        .json({ error: "Image generation failed", detail: errText });
     }
 
     const arrayBuffer = await hfRes.arrayBuffer();

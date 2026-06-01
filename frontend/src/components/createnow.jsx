@@ -28,11 +28,15 @@ function Creatnow() {
         body: JSON.stringify({ message: choice.toLowerCase() })
       });
 
-      if (!res.ok) {
-        setLoading(false);
-        setError("Invalid choice. Try one of the allowed images");
-        return;
-      }
+     if (!res.ok) {
+  setLoading(false);
+  if (res.status === 503) {
+    setError("Model is warming up, please try again in 20 seconds.");
+  } else {
+    setError("Failed to generate image. Try a different prompt.");
+  }
+  return;
+}
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);

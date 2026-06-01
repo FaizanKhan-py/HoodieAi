@@ -1,33 +1,49 @@
-const path = require("path");
+// controllers/imageController.js
 
-// Static image map (replace with Gemini API call later)
-const IMAGE_MAP = {
-  "light yagami":       "Light Yagami.png",
-  "aliens in space":    "Aliens in Space.png",
-  "angry naruto":       "AngryNauroto.png",
-  "cat playing guitar": "Cat Playing Guitar.png",
-  "laughing dog":       "Laughing Dog.png",
-};
+const generateImage = async (req, res) => {
+  const prompt = req.body.message?.trim();
 
-// POST /api/image/generate
-const generateImage = (req, res) => {
-  const choice = req.body.message?.toLowerCase().trim();
-
-  if (!choice) {
+  if (!prompt) {
     return res.status(400).json({ error: "message is required" });
   }
 
-  const filename = IMAGE_MAP[choice];
+  try {
+    const hfRes = await fetch(
+      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HF_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputs: `hoodie graphic design, ${prompt}, high quality, centered, flat design, white background`,
+        }),
+      }
+    );
 
-  if (!filename) {
-    return res.status(400).json({
-      error: "Invalid choice.",
-      valid_options: Object.keys(IMAGE_MAP),
-    });
+    // Model is still loading (cold start) — tell frontend to retry
+    if (hfRes.status === 503) {
+      return res.status(503).json({ error: "Model loading, please retry in 20 seconds" });
+    }
+
+    if (!hfRes.ok) {
+      const errText = await hfRes.text();
+      console.error("HF Error:", errText);
+      return res.status(500).json({ error: "Image generation failed" });
+    }
+
+    // Stream the image blob directly back to frontend
+    const arrayBuffer = await hfRes.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    res.set("Content-Type", "image/jpeg");
+    res.send(buffer);
+
+  } catch (err) {
+    console.error("Server error:", err);
+    res.status(500).json({ error: "Server error" });
   }
-
-  const imagePath = path.join(__dirname, "..", "images", filename);
-  res.sendFile(imagePath);
 };
 
 module.exports = { generateImage };

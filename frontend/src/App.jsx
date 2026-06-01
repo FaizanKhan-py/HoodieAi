@@ -6,26 +6,29 @@ import Creatnow from './components/createnow'
 import Designs from './components/designs'
 import ProtectedRoute from './components/ProtectedRoute'
 import Cart from './components/Cart'
+import { CartProvider } from './context/CartState'   // 👈 add this
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-950 to-black text-white">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="designs" element={<Designs />} />
-          <Route path="cart" element={<Cart />} /> 
-          <Route
-            path="create"
-            element={
-              <ProtectedRoute>
-                <Creatnow />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-      </Routes>
-    </div>
+    <CartProvider>   {/* 👈 wrap here */}
+      <div className="min-h-screen bg-gradient-to-r from-purple-950 to-black text-white">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="designs" element={<Designs />} />
+            <Route path="cart" element={<Cart />} />
+            <Route
+              path="create"
+              element={
+                <ProtectedRoute>
+                  <Creatnow />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </div>
+    </CartProvider>  
   )
 }
 

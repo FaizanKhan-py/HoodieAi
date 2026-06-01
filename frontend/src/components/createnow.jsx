@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import defaultimg from '../Pictures/Defualthoodie.png';
+import { useCart } from '../context/CartContext';
 
 function Creatnow() {
   const [choice, setChoice] = useState("");
@@ -7,12 +9,17 @@ function Creatnow() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [added, setAdded] = useState(false);   // brief feedback flash
+
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const generateImage = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
     setImageUrl("");
+    setAdded(false);
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/image/generate`, {
@@ -42,6 +49,29 @@ function Creatnow() {
     }
   };
 
+  const handleAddToCart = () => {
+    // Guard: must have generated an image first
+    if (!imageUrl) {
+      setError("Please generate a design first.");
+      return;
+    }
+    if (!selectedColor) {
+      setError("Please select a hoodie color.");
+      return;
+    }
+
+    addToCart({
+      prompt: choice,
+      image: imageUrl,
+      color: selectedColor,
+    });
+
+    setAdded(true);
+
+    // Navigate to cart after a short delay so the user sees the flash
+    setTimeout(() => navigate("/cart"), 800);
+  };
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -52,7 +82,7 @@ function Creatnow() {
       {/* ── MOBILE LAYOUT ── */}
       <div className="flex flex-col md:hidden mt-9">
 
-        {/* Mobile: Image on top — no wrapper div, just image */}
+        {/* Mobile: Image on top */}
         <div className="relative w-full flex items-center justify-center pt-4">
           <img
             src={imageUrl || defaultimg}
@@ -123,9 +153,14 @@ function Creatnow() {
               Generate
             </button>
             <button
-              className="flex-1 py-3 border border-purple-500 hover:bg-purple-500/20 active:scale-95 rounded-2xl font-semibold text-purple-300 transition-all duration-200 text-sm"
+              onClick={handleAddToCart}
+              className={`flex-1 py-3 border active:scale-95 rounded-2xl font-semibold transition-all duration-200 text-sm
+                ${added
+                  ? "border-green-500 text-green-400 bg-green-500/10"
+                  : "border-purple-500 hover:bg-purple-500/20 text-purple-300"
+                }`}
             >
-              Place Order
+              {added ? "Added ✓" : "Add to Cart"}
             </button>
           </div>
 
@@ -196,9 +231,14 @@ function Creatnow() {
               Generate Design
             </button>
             <button
-              className="cursor-pointer px-8 py-3 border border-purple-500 hover:bg-purple-500/20 active:scale-95 rounded-2xl font-semibold text-purple-300 transition-all duration-200 text-base"
+              onClick={handleAddToCart}
+              className={`cursor-pointer px-8 py-3 border active:scale-95 rounded-2xl font-semibold transition-all duration-200 text-base
+                ${added
+                  ? "border-green-500 text-green-400 bg-green-500/10"
+                  : "border-purple-500 hover:bg-purple-500/20 text-purple-300"
+                }`}
             >
-              Place Order
+              {added ? "Added to Cart ✓" : "Add to Cart"}
             </button>
           </div>
 
@@ -211,7 +251,6 @@ function Creatnow() {
 
         {/* Right */}
         <div className="w-1/2 flex items-center justify-center relative">
-          {/* Glow behind image */}
           <div className="absolute w-80 h-80 bg-purple-700/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">

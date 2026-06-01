@@ -1,36 +1,9 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import shoppingbag from "../Pictures/shopping-bag.png";
-
-// dummy data for now — replace with real cart state/API later
-const initialItems = [
-  {
-    id: 1,
-    title: "Light Yagami",
-    color: "Black",
-    size: "M",
-    price: 3000,
-    quantity: 1,
-    image: null, // replace with actual image url
-  },
-];
+import { useCart } from '../context/CartContext';
 
 export default function Cart() {
-  const [items, setItems] = useState(initialItems);
-
-  const updateQuantity = (id, delta) => {
-    setItems(prev =>
-      prev.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id) => {
-    setItems(prev => prev.filter(item => item.id !== id));
-  };
+  const { items, updateQuantity, removeItem } = useCart();
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -45,11 +18,7 @@ export default function Cart() {
       {items.length === 0 ? (
         /* ── EMPTY STATE ── */
         <div className="flex flex-col items-center justify-center gap-5 mt-24 text-center">
-          <img
-  src={shoppingbag}
-  alt=""
-  className="md:w-40 w-20 filter invert"
-/>
+          <img src={shoppingbag} alt="" className="md:w-40 w-20 filter invert" />
           <h2 className="text-2xl font-semibold">Your cart is empty</h2>
           <p className="text-gray-400">Looks like you haven't added anything yet.</p>
           <Link to="/create">
@@ -84,9 +53,9 @@ export default function Cart() {
                 <div className="flex-1 flex flex-col justify-between">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-semibold text-base">{item.title}</h3>
+                      <h3 className="font-semibold text-base capitalize">{item.title}</h3>
                       <p className="text-gray-400 text-sm mt-0.5">
-                        Color: {item.color} · Size: {item.size}
+                        Color: <span className="capitalize">{item.color}</span> · Size: {item.size}
                       </p>
                     </div>
                     <button

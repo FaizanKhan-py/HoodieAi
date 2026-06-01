@@ -9,12 +9,25 @@ const generateImage = async (req, res) => {
 
   try {
     const encodedPrompt = encodeURIComponent(
-      `hoodie graphic design, ${prompt}, high quality, centered, flat design, white background`
+      `Create a realistic product mockup of a premium oversized hoodie.
+
+Place the provided design image exactly as it is on the center chest area.
+Do not modify the design.
+Do not change typography.
+Do not redesign it.
+Realistic fabric folds.
+Studio lighting.
+Photorealistic.
+E-commerce style.
+4K resolution.
+Minimal background.
+
+Design description: ${prompt}`,
     );
 
     const hfRes = await fetch(
       `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&nologo=true`,
-      { method: "GET" }
+      { method: "GET" },
     );
 
     if (!hfRes.ok) {
@@ -26,7 +39,6 @@ const generateImage = async (req, res) => {
 
     res.set("Content-Type", "image/jpeg");
     res.send(buffer);
-
   } catch (err) {
     console.error("Server error:", err);
     res.status(500).json({ error: "Server error" });

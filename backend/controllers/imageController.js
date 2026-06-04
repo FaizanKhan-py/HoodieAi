@@ -9,25 +9,19 @@ const generateImage = async (req, res) => {
   try {
     console.log("Generating for prompt:", prompt);
 
+    const accountId = process.env.CF_ACCOUNT_ID;
+    const apiToken = process.env.CF_API_TOKEN;
+
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1",
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0`,
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.HF_TOKEN}`,
+          "Authorization": `Bearer ${apiToken}`,
           "Content-Type": "application/json",
-          "x-wait-for-model": "true",
         },
-        body: JSON.stringify({
-          inputs: fullPrompt,
-          parameters: {
-            width: 512,
-            height: 512,
-            num_inference_steps: 20,
-            guidance_scale: 7.5,
-          },
-        }),
-        signal: AbortSignal.timeout(120000), // 2 min timeout
+        body: JSON.stringify({ prompt: fullPrompt }),
+        signal: AbortSignal.timeout(60000),
       }
     );
 
@@ -35,8 +29,8 @@ const generateImage = async (req, res) => {
 
     if (!response.ok) {
       const err = await response.text();
-      console.error("HF Error:", err);
-      return res.status(500).json({ error: "Image generation failed", detail: err });
+      console.error("CF Error:", err);
+      return res.status(500).json({ error: "Image generation failed" });
     }
 
     const arrayBuffer = await response.arrayBuffer();

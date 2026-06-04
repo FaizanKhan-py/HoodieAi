@@ -4,7 +4,7 @@ const generateImage = async (req, res) => {
     return res.status(400).json({ error: "message is required" });
   }
 
-  const fullPrompt = `${prompt}, graphic design artwork, sticker style, white background, centered, clean illustration, no text, t-shirt print ready`;
+  const fullPrompt = `${prompt}, graphic design artwork, sticker style, pure white background, centered, clean illustration, no text, t-shirt print ready`;
 
   try {
     console.log("Generating for prompt:", prompt);
@@ -35,7 +35,9 @@ const generateImage = async (req, res) => {
 
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    res.set("Content-Type", "image/jpeg");
+
+    // Send as PNG instead of JPEG
+    res.set("Content-Type", "image/png");
     res.send(buffer);
 
   } catch (err) {

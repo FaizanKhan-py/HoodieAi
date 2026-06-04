@@ -26,63 +26,62 @@ function Creatnow() {
 
   // ── Merge AI graphic onto selected hoodie ──
   const mergeWithHoodie = (designUrl, hoodieColor) => {
-    return new Promise((resolve) => {
-      const canvas = document.createElement("canvas");
-      canvas.width = 500;
-      canvas.height = 580;
-      const ctx = canvas.getContext("2d");
+  return new Promise((resolve) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 500;
+    canvas.height = 580;
+    const ctx = canvas.getContext("2d");
 
-      const hoodie = new Image();
-      hoodie.src = HOODIE_IMAGES[hoodieColor] || blackHoodie;
+    const hoodie = new Image();
+    hoodie.src = HOODIE_IMAGES[hoodieColor] || blackHoodie;
 
-      hoodie.onload = () => {
-        // Draw correct color hoodie
-        ctx.drawImage(hoodie, 0, 0, 500, 580);
+    hoodie.onload = () => {
+      ctx.drawImage(hoodie, 0, 0, 500, 580);
 
-        // Draw AI design on chest
-        const design = new Image();
-        design.src = designUrl;
+      const design = new Image();
+      design.src = designUrl;
 
-        design.onload = () => {
-          const designSize = 160;
-          const x = (500 - designSize) / 2;
-          const y = 230;
+      design.onload = () => {
+        const designSize = 160;
+        const x = (500 - designSize) / 2;
+        const y = 230;
 
-          // Remove white background from design
-          const tempCanvas = document.createElement("canvas");
-          tempCanvas.width = designSize;
-          tempCanvas.height = designSize;
-          const tempCtx = tempCanvas.getContext("2d");
-          tempCtx.drawImage(design, 0, 0, designSize, designSize);
+        // Step 1: Draw design on temp canvas
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = designSize;
+        tempCanvas.height = designSize;
+        const tempCtx = tempCanvas.getContext("2d");
+        tempCtx.drawImage(design, 0, 0, designSize, designSize);
 
-          const imageData = tempCtx.getImageData(0, 0, designSize, designSize);
-          const data = imageData.data;
-          // Find this loop in mergeWithHoodie and replace it:
-          for (let i = 0; i < data.length; i += 4) {
-            const r = data[i],
-              g = data[i + 1],
-              b = data[i + 2];
+        // Step 2: Remove white background aggressively
+        const imageData = tempCtx.getImageData(0, 0, designSize, designSize);
+        const data = imageData.data;
 
-            // More aggressive white removal
-            const isWhiteish = r > 200 && g > 200 && b > 200;
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i + 1], b = data[i + 2];
 
-            if (isWhiteish) {
-              // Fade out near-white pixels smoothly
-              const whiteness = Math.min(r, g, b);
-              const alpha = Math.max(0, 255 - whiteness);
-              data[i + 3] = alpha;
-            }
+          // Check if pixel is white or near-white
+          const brightness = (r + g + b) / 3;
+          const isNeutral = Math.abs(r - g) < 25 && Math.abs(g - b) < 25 && Math.abs(r - b) < 25;
+
+          if (isNeutral && brightness > 210) {
+            // Smooth fade at edges
+            const alpha = Math.round(((brightness - 210) / 45) * 255);
+            data[i + 3] = Math.max(0, 255 - alpha);
           }
-          tempCtx.putImageData(imageData, 0, 0);
+        }
 
-          ctx.drawImage(tempCanvas, x, y, designSize, designSize);
-          resolve(canvas.toDataURL("image/png"));
-        };
+        tempCtx.putImageData(imageData, 0, 0);
 
-        design.onerror = () => resolve(canvas.toDataURL("image/png"));
+        // Step 3: Draw transparent design on hoodie
+        ctx.drawImage(tempCanvas, x, y, designSize, designSize);
+        resolve(canvas.toDataURL("image/png"));
       };
-    });
-  };
+
+      design.onerror = () => resolve(canvas.toDataURL("image/png"));
+    };
+  });
+};
 
   const generateImage = async (e) => {
     e.preventDefault();

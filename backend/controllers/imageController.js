@@ -4,7 +4,7 @@ const generateImage = async (req, res) => {
     return res.status(400).json({ error: "message is required" });
   }
 
-  const fullPrompt = `${prompt}, die cut sticker, vibrant colors, clean crisp edges, centered, isolated on white background, no shadows, t-shirt print ready`;
+ const fullPrompt = `single ${prompt}, one centered subject, die cut sticker, vibrant colors, clean crisp edges, isolated on white background, no shadows, t-shirt print ready`;
 
   try {
     console.log("Generating for prompt:", prompt);

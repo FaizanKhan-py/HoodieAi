@@ -10,16 +10,17 @@ const generateImage = async (req, res) => {
     console.log("Generating for prompt:", prompt);
 
     const encodedPrompt = encodeURIComponent(fullPrompt);
-    const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&nologo=true&seed=42`;
+    
+    // Pollinations new free endpoint (no model param)
+    const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&nologo=true&private=false`;
 
     console.log("Fetching:", url);
 
     const response = await fetch(url, {
-      signal: AbortSignal.timeout(60000), // 60s timeout
+      signal: AbortSignal.timeout(60000),
     });
 
     console.log("Status:", response.status);
-    console.log("Content-Type:", response.headers.get("content-type"));
 
     if (!response.ok) {
       console.error("Pollinations failed:", response.status);

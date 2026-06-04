@@ -9,22 +9,34 @@ const generateImage = async (req, res) => {
   try {
     console.log("Generating for prompt:", prompt);
 
-    const encodedPrompt = encodeURIComponent(fullPrompt);
-    
-    // Pollinations new free endpoint (no model param)
-    const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&nologo=true&private=false`;
-
-    console.log("Fetching:", url);
-
-    const response = await fetch(url, {
-      signal: AbortSignal.timeout(60000),
-    });
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.HF_TOKEN}`,
+          "Content-Type": "application/json",
+          "x-wait-for-model": "true",
+        },
+        body: JSON.stringify({
+          inputs: fullPrompt,
+          parameters: {
+            width: 512,
+            height: 512,
+            num_inference_steps: 20,
+            guidance_scale: 7.5,
+          },
+        }),
+        signal: AbortSignal.timeout(120000), // 2 min timeout
+      }
+    );
 
     console.log("Status:", response.status);
 
     if (!response.ok) {
-      console.error("Pollinations failed:", response.status);
-      return res.status(500).json({ error: "Image generation failed" });
+      const err = await response.text();
+      console.error("HF Error:", err);
+      return res.status(500).json({ error: "Image generation failed", detail: err });
     }
 
     const arrayBuffer = await response.arrayBuffer();
